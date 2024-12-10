@@ -31,10 +31,10 @@ class AuthController extends Controller
             'specialization' => 'string|min:3',
         ]);
 
-       
+
         $user = User::create(attributes: $validation);
         if ($validation['role'] == 'student') {
-            
+
             $st_validation = $request->validate([
                 'skills' => 'string|nullable',
                 'users_id' => 'integer'
@@ -44,14 +44,14 @@ class AuthController extends Controller
             $token = $user->createToken($request->name)->plainTextToken;
             return response()->json(
                 [
-                    'role'=>$validation['role'],
-                    'data' =>$student,
-                    'token' =>$token,
+                    'data' => new teacherResource($student),
+                    'token' => $token,
+
                 ],
                 200
             );
         } else if ($validation['role'] == 'teacher') {
-           
+
             $st_validation = $request->validate([
                 'users_id' => 'integer',
                 'max_project' => 'integer',
@@ -62,8 +62,8 @@ class AuthController extends Controller
             $token = $user->createToken($request->name)->plainTextToken;
             return response()->json(
                 [
-                    'role'=>$validation['role'],
-                    'data' => $teacher,
+
+                    'data' => new teacherResource($teacher),
                     'token' => $token,
 
                 ],
@@ -83,13 +83,24 @@ class AuthController extends Controller
     {
         $field = $request->validate([
             'name' => 'string',
-            'email' => 'email|unique:users',
+            'email' => 'email',
             'password' => 'min:8|confirmed',
         ]);
-
         $user = $request->user();
+        $useremail = User::where('email', $request->email);
+        if ($useremail->exists() && $user->id != $useremail->get('id')->first()->id) {
+
+            return response()->json(
+                [
+                    'message' => 'email already existe change your emial and try again',
+                    'id' => $user->id,
+                    'emailmid' => $useremail->get('id')->first()->id,
+                ],
+                500,
+            );
+        }
         $user->update($field);
-        $token = $user->createToken($request->name);
+        $token = $user->createToken($request->email);
         return [
             'user' => new UserResource($user),
             'token' => $token->plainTextToken,

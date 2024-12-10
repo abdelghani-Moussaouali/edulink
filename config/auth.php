@@ -36,6 +36,10 @@ return [
     */
 
     'guards' => [
+        'guest' => [
+            'driver' => 'sanctum',
+            'provider' => 'guest',
+        ],
         'admin' => [
             'driver' => 'sanctum',
             'provider' => 'admins',
@@ -68,6 +72,10 @@ return [
     */
 
     'providers' => [
+        'guest' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
         'admins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\Admin::class),
