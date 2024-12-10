@@ -31,7 +31,7 @@ class AuthController extends Controller
             'specialization' => 'string|min:3',
         ]);
 
-        $validation['role'] = $request->role;
+       
         $user = User::create(attributes: $validation);
         if ($validation['role'] == 'student') {
             

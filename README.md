@@ -1,12 +1,12 @@
-# university API  
+# edulink API  
 
-The **university API** is a backend solution built with Laravel to develop a web application to facilitate the management of assignments, allowing teachers to propose projects, students to apply and form pairs, and the administration to supervise the entire process in a smooth and transparent manner. 
+The **edulink API** is a backend solution built with Laravel to develop a web application to facilitate the management of assignments, allowing teachers to propose projects, students to apply and form pairs, and the administration to supervise the entire process in a smooth and transparent manner. 
 
 
 
 ## Getting Started  
 
-Follow the instructions below to set up and run the universityStore API on your local machine.
+Follow the instructions below to set up and run the edulink API on your local machine.
 
 
 ### Prerequisites  
@@ -23,7 +23,7 @@ Make sure your system meets the following requirements:
 
 1. Open your terminal and run:  
    ```bash
-   git clone https://github.com/abdelghani-Moussaouali/university.git
+   git clone https://github.com/abdelghani-Moussaouali/edulink.git
    ```
 
 
@@ -83,8 +83,8 @@ Make sure your system meets the following requirements:
 
 For quick setup and run on **Linux**:  
 ```bash
-git clone https://github.com/abdelghani-Moussaouali/university.git && \
-cd university && \
+git clone https://github.com/abdelghani-Moussaouali/edulink.git && \
+cd edulink && \
 composer install && \
 cp .env.example .env && \
 php artisan key:generate && \
@@ -125,5 +125,5 @@ This project is open-source under the [MIT License](LICENSE.md) file for details
 
 <div align="center">   
     <!-- <img src="./public/logo.png" width="170"> -->
-    <p>&copy; 2024 , All rights reserved to - university </p> 
+    <p>&copy; 2024 , All rights reserved to - edulink </p> 
 </div>

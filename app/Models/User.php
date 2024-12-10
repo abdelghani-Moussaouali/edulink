@@ -13,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable,HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
 
 
     /**
@@ -24,12 +24,12 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'role',
+        'phone_number',
+        'image_profile',
+        'specialization',
+        'password'
     ];
-
-    // protected $casts = [
-    //     'role' => UserRole::class,
-    // ];
 
     /**
      * The attributes that should be hidden for serialization.
