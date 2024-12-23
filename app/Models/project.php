@@ -14,4 +14,13 @@ class project extends Model
     {
         return $this->belongsTo(related: group::class);
     }
+
+    function specializations()
+    {
+        return $this->hasMany(related: specializations::class);
+    }
+    function keywords()
+    {
+        return $this->hasMany(related: keywords::class);
+    }
 }

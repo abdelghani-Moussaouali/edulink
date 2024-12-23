@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('teacher_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('keywords_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('specializations_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['open', 'in progress', 'submitted', 'closed']);
