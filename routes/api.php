@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 
-//testing 
-
-Route::get('test', [UserController::class, 'test']);
-
-
 // public route for students 
 Route::post('user/register', [AuthController::class, 'register']); // register user work
 Route::get('user/', [UserController::class, 'index']); // get all user (admin,students,teacher) work 
