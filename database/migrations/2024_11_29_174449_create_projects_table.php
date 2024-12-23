@@ -16,8 +16,7 @@ return new class extends Migration
             $table->foreignId('teacher_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
-            $table->string('keyword');
-            $table->enum('status',['open','in progress','closed']);     
+            $table->enum('status', ['open', 'in progress', 'submitted', 'closed']);
             $table->timestamps();
         });
     }

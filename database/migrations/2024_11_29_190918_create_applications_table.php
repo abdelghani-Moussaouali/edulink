@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('project_id')->constrained()->cascadeOnDelete();
-            $table->enum('status',['pending','accepted','rejected']);
-      
+            $table->foreignId('projects_id')->constrained()->cascadeOnDelete();
+            $table->enum('status', ['pending', 'accepted', 'rejected']);
+            $table->foreignId('groups_id')->constrained()->cascadeOnDelete();
+            $table->boolean('isApproved')->default(false);
             $table->timestamps();
         });
     }

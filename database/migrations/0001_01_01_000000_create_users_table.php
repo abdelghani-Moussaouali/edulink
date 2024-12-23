@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('role',['student','teacher','admin'])->default('student');
             $table->integer('phone_number')->nullable();
             $table->string('image_profile')->nullable();
+            $table->boolean('isActive')->default(true);
             $table->string('specialization')->default('no informations');
             $table->rememberToken();
             $table->timestamps();

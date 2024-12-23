@@ -22,10 +22,10 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validation = $request->validate([
-            'name' => 'string|required|min:3',
+            'name' => 'string|required|min:3|unique:users',
             'email' => 'email|required|unique:users',
             'password' => 'required|confirmed',
-            'role' => 'required|in:teacher,student,admin',
+            'role' => 'required|in:teacher,student',
             'phone_number' => 'numeric',
             'image_profile' => 'image|mimes:jpeg,jfif,png,jpg,gif,svg|max:2048',
             'specialization' => 'string|min:3',
@@ -118,12 +118,13 @@ class AuthController extends Controller
                 ['message' => 'confirm your email & password and try again',],
                 401,
             );
-        } else if ($user->id != Auth::user()->id) {
-            return response()->json(
-                ['message' => 'your token is incorrect',],
-                401,
-            );
-        }
+        } 
+        // else if ($user->id != Auth::user()->id) {
+        //     return response()->json(
+        //         ['message' => 'your token is incorrect',],
+        //         401,
+        //     );
+        // }
         $token = $user->createToken($user->name);
         return response()->json([
             'request' => 'you log in your compte secussfully',
