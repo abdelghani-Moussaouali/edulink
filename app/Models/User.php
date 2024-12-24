@@ -60,8 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(student::class);
     }
-    function teachers()
+
+    public function teachers()
     {
-        return $this->hasOne(teacher::class);
+        return $this->hasOne(Teacher::class, 'users_id'); // Adjust foreign key if necessary
     }
 }

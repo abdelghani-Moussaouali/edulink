@@ -30,11 +30,8 @@ class AuthController extends Controller
             'image_profile' => 'image|mimes:jpeg,jfif,png,jpg,gif,svg|max:2048',
             'specialization' => 'string|min:3',
         ]);
-
-
         $user = User::create(attributes: $validation);
         if ($validation['role'] == 'student') {
-
             $st_validation = $request->validate([
                 'skills' => 'string|nullable',
                 'users_id' => 'integer'
@@ -45,8 +42,8 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'data' => new teacherResource($student),
-                    'token' => $token,
 
+                    'token' => $token,
                 ],
                 200
             );
@@ -55,17 +52,14 @@ class AuthController extends Controller
             $st_validation = $request->validate([
                 'users_id' => 'integer',
                 'max_project' => 'integer',
-
             ]);
             $st_validation['users_id'] = $user->id;
             $teacher = teacher::create($st_validation);
             $token = $user->createToken($request->name)->plainTextToken;
             return response()->json(
                 [
-
                     'data' => new teacherResource($teacher),
                     'token' => $token,
-
                 ],
                 200
             );
@@ -115,10 +109,13 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(
-                ['message' => 'confirm your email & password and try again',],
+                [
+                    'message' => 'confirm your email & password and try again',
+                    
+                ],
                 401,
             );
-        } 
+        }
         // else if ($user->id != Auth::user()->id) {
         //     return response()->json(
         //         ['message' => 'your token is incorrect',],
@@ -129,6 +126,7 @@ class AuthController extends Controller
         return response()->json([
             'request' => 'you log in your compte secussfully',
             'token' => $token->plainTextToken,
+            'id'=> $request->user(),
 
         ], 200,);
     }

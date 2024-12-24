@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class student extends Authenticatable
+class student extends Model
 {
     use HasFactory, Notifiable;
     protected $fillable = [
