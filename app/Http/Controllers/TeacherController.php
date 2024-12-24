@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateteacherRequest;
 use App\Http\Resources\teacherResource;
 use App\Http\Resources\UserResource;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -53,7 +54,8 @@ class TeacherController extends Controller
      */
     public function show(teacher $teacher)
     {
-        //
+        $teacher  = Auth::user()->teachers;
+        return new teacherResource($teacher);
     }
 
     /**

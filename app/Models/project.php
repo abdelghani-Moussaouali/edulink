@@ -15,18 +15,18 @@ class project extends Model
         'teachers_id',
         'specializations_id',
     ];
-    
+
     function group()
     {
-        return $this->belongsTo(related: group::class);
+        return $this->belongsTo(group::class,);
     }
 
     function specializations()
     {
-        return $this->hasOne(related: specializations::class);
+        return $this->hasOne(specializations::class,);
     }
-    // function keywords()
-    // {
-    //     return $this->hasMany(related: keywords::class);
-    // }
+    function keywords()
+    {
+        return $this->belongsToMany(keywords::class,table: 'keywords_projects');
+    }
 }

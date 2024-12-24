@@ -38,5 +38,12 @@ Route::get('user/admin', [AdminController::class, 'index'],)->middleware('auth:s
 
 Route::middleware(['auth:sanctum', TeacherMiddleware::class])->group(function () {
     Route::get('user/teacher', [TeacherController::class, 'index']); // get all teacher work 
-    Route::post('user/teacher/project', [ProjectController::class, 'store']);
+    Route::get('user/teacher/project', [ProjectController::class, 'index']); // show all project work 
+    Route::post('user/teacher/project', [ProjectController::class, 'store']);// show the teacher profile
+    Route::get('user/teacher/profile', [TeacherController::class, 'show']); // get all teacher work 
 });
+
+
+
+
+// make changes in project resource 

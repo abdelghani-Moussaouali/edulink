@@ -11,6 +11,6 @@ class specializations extends Model
     protected $fillable = ['specialization_name'];
     function projects()
     {
-        return $this->belongsTo(related: project::class);
+        return $this->belongsTo(project::class, );
     }
 }

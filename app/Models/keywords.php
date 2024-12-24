@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class keywords extends Model
 {
@@ -14,4 +15,9 @@ class keywords extends Model
     // {
     //     return $this->belongsTo(related: project::class);
     // }
+
+    function projects()
+    {
+        return $this->belongsToMany(Project::class,table: 'keywords_projects');
+    }
 }
