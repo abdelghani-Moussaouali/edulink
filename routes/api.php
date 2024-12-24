@@ -14,33 +14,32 @@ use Illuminate\Support\Facades\Route;
 
 
 // public route for students 
-Route::post('user/register', [AuthController::class, 'register']); // register user work
-Route::get('user/', [UserController::class, 'index']); // get all user (admin,students,teacher) work 
-Route::get('user/students', [StudentController::class, 'index']); //get all students  work 
+Route::post('user/register', [AuthController::class, 'register']); // register user 
+Route::get('user/', [UserController::class, 'index']); // get all user (admin,students,teacher)  
+Route::get('user/students', [StudentController::class, 'index']); //get all students   
 // login user 
-Route::post('user/login', [AuthController::class, 'login']); //  work
+Route::post('user/login', [AuthController::class, 'login']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('user/login', [AuthController::class, 'login']);
-    // update user profile
-    Route::put('user/update', [AuthController::class, 'update']); //  work
-    // logout the user
-    Route::post('user/logout', [AuthController::class, 'logout']); //  work
-
+    Route::put('user/update', [AuthController::class, 'update']); // update user profile
+    Route::post('user/logout', [AuthController::class, 'logout']); // logout the user
 });
-// get all students 
-Route::get('user/admin', [AdminController::class, 'index'],)->middleware('auth:sanctum', Admin::class);
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    // get all students 
+    Route::get('user/admin', [AdminController::class, 'index'],);
+});
 
 
 // teacher routes :
-
-
 Route::middleware(['auth:sanctum', TeacherMiddleware::class])->group(function () {
-    Route::get('user/teacher', [TeacherController::class, 'index']); // get all teacher work 
-    Route::get('user/teacher/project', [ProjectController::class, 'index']); // show all project work 
-    Route::post('user/teacher/project', [ProjectController::class, 'store']);// show the teacher profile
-    Route::get('user/teacher/profile', [TeacherController::class, 'show']); // get all teacher work 
+    Route::get('user/teacher', [TeacherController::class, 'index']); // get all teacher  
+    Route::get('user/teacher/project', [ProjectController::class, 'index']); // show all projects 
+    Route::post('user/teacher/project', [ProjectController::class, 'store']); // add the project
+    Route::get('user/teacher/profile', [TeacherController::class, 'show']); // show teacher profile
 });
 
 
