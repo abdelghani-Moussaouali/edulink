@@ -38,8 +38,8 @@ class ProjectController extends Controller
             'description' => 'string|required',
             'status' => 'string|in:open,in progress,submitted,closed',
             'specializations_id' => 'integer',
-            'keywords' => 'required|array',
-            'keywords.*' => 'string',
+            // 'keywords' => 'required|array',
+            // 'keywords.*' => 'string',
         ]);
         $field['status'] = $field['status'] ?? 'open';
         $field['teachers_id'] = Auth::user()->teachers->id;
@@ -75,7 +75,25 @@ class ProjectController extends Controller
      */
     public function update(Request $request, project $project)
     {
-        //
+        $field = $request->validate([
+            'title' => 'unique:projects|string|required|min:5',
+            'description' => 'string|required',
+            'status' => 'string|in:open,in progress,submitted,closed',
+            'specializations_id' => 'integer',
+            // 'keywords' => 'required|array',
+            // 'keywords.*' => 'string',
+        ]);
+        $field['status'] = $field['status'] ?? 'open';
+        $field['teachers_id'] = Auth::user()->teachers->id;
+
+
+        project::create($field);
+        return response()->json(
+            [
+                'message' => 'the project was created successfully',
+            ],
+
+        );
     }
 
     /**

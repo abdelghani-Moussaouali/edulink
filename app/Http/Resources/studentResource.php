@@ -12,12 +12,12 @@ class studentResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray(Request $request)
     {
         return [
-            'id'=>$this->id,
-            'skills'=>$this->skills,
-            'user'=> new UserResource($this->users)
+            'id' => $this->id,
+            'skills' => $this->skills,
+            'user' => new UserResource($this->users)
         ];
     }
 }

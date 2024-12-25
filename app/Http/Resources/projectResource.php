@@ -18,7 +18,7 @@ class projectResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'status' => $this->status,
-            'specializations_id' => $this->specializations_id,
+            'specializations' => new Specialization($this->specializations),
         ];
     }
 }

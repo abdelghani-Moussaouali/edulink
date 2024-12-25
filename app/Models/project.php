@@ -23,10 +23,10 @@ class project extends Model
 
     function specializations()
     {
-        return $this->hasOne(specializations::class,);
+        return $this->belongsTo(specializations::class,);
     }
     function keywords()
     {
-        return $this->belongsToMany(keywords::class,table: 'keywords_projects');
+        return $this->belongsToMany(keywords::class, table: 'keywords_projects');
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('teachers_id')->constrained()->cascadeOnDelete();
             // $table->foreignId('keywords_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('specializations_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('specializations_id')->constrained()->references('id')->on('specializations')->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['open', 'in progress', 'submitted', 'closed'])->default('open');

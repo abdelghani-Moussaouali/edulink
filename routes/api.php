@@ -32,14 +32,17 @@ Route::middleware('auth:sanctum')->group(function () {
     // get all students 
     Route::get('user/admin', [AdminController::class, 'index'],);
 });
-
-
 // teacher routes :
 Route::middleware(['auth:sanctum', TeacherMiddleware::class])->group(function () {
     Route::get('user/teacher', [TeacherController::class, 'index']); // get all teacher  
     Route::get('user/teacher/project', [ProjectController::class, 'index']); // show all projects 
-    Route::post('user/teacher/project', [ProjectController::class, 'store']); // add the project
+
     Route::get('user/teacher/profile', [TeacherController::class, 'show']); // show teacher profile
+    // project routes :
+    Route::post('user/teacher/project', [ProjectController::class, 'store']); // create the project
+    Route::put('user/teacher/project', [ProjectController::class, 'update']); // update the project
+
+
 });
 
 
