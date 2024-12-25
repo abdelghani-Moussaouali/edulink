@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project as XmlProject;
 
 class ProjectController extends Controller
 {
@@ -59,7 +60,13 @@ class ProjectController extends Controller
      */
     public function show(project $project)
     {
-        //
+        // $project = project::select('select * from project where status = ? ', ['open'])->first();
+        $project = project::where('status', '!=', 'open')->get();
+
+        return response()->json(
+            projectResource::collection($project),
+            200
+        );
     }
 
     /**

@@ -86,7 +86,7 @@ class AuthController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'email already existe change your emial and try again',
+                    'message' => 'email already existe change your email and try again',
                     'id' => $user->id,
                     'emailmid' => $useremail->get('id')->first()->id,
                 ],
