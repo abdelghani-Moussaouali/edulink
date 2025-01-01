@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
@@ -12,9 +12,9 @@ class teacher extends Model
 {
     use HasFactory, Notifiable;
     protected $fillable = [
+    
         'users_id',
         'max_project',
-
     ];
     protected $guard = 'teacher';
     function users()
@@ -25,5 +25,10 @@ class teacher extends Model
     function application()
     {
         return $this->belongsTo(related: applications::class);
+    }
+
+    function projects()
+    {
+        return $this->hasMany(project::class,'teachers_id');
     }
 }

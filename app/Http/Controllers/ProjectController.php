@@ -43,9 +43,15 @@ class ProjectController extends Controller
             // 'keywords.*' => 'string',
         ]);
         $field['status'] = $field['status'] ?? 'open';
-        $field['teachers_id'] = Auth::user()->teachers->id;
-
-
+        // $field['keywords'] = $field['keywords'];
+        $field['teachers_id'] = Auth::user()->teachers->id ?? 0;
+        if (Auth::user()->role == 'admin') {
+            return response()->json(
+                [
+                    'message' => 'unauthenticated request',
+                ],
+            );
+        }
         project::create($field);
         return response()->json(
             [
@@ -60,9 +66,7 @@ class ProjectController extends Controller
      */
     public function show(project $project)
     {
-        // $project = project::select('select * from project where status = ? ', ['open'])->first();
         $project = project::where('status', '!=', 'open')->get();
-
         return response()->json(
             projectResource::collection($project),
             200
@@ -72,32 +76,92 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(project $project)
+    public function edit(Request $request, $id)
     {
-        //
+        $project = Project::find($id);
+
+        $validator = $request->validate(
+            [
+                'title' => 'string',
+                'status' => 'string|in:open,in progress,submitted,closed',
+            ]
+        );
+        try {
+            $project->update($validator);
+            return response()->json(
+                [
+                    'message' => 'the project was updated successfully',
+                    'project' => $project,
+                ],
+                200
+            );
+        } catch (Exception $th) {
+            return response()->json(
+                [
+                    'message' => 'the project wasn\'t updated , there is error'
+
+                ],
+                500
+            );
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, project $project)
+    public function update(Request $request, $id)
     {
+        $proj = $request->user()->teachers()
+            ->with('projects')
+            ->get()
+            ->pluck('projects')
+            ->flatten();
+        $project = $proj->get($id - 1);
+        if ($project === null) {
+            return response()->json(
+                [
+                    'message' => 'project not found',
+                ],
+                404
+            );
+        }
         $field = $request->validate([
-            'title' => 'unique:projects|string|required|min:5',
-            'description' => 'string|required',
-            'status' => 'string|in:open,in progress,submitted,closed',
+            'title' => 'unique:projects|string|min:5',
+            'description' => 'string',
             'specializations_id' => 'integer',
-            // 'keywords' => 'required|array',
-            // 'keywords.*' => 'string',
+           
         ]);
-        $field['status'] = $field['status'] ?? 'open';
-        $field['teachers_id'] = Auth::user()->teachers->id;
-
-
-        project::create($field);
+        $project->update($field);
         return response()->json(
             [
                 'message' => 'the project was created successfully',
+                'pro' =>  $project,
+            ],
+
+        );
+    }
+
+
+    public function change(Request $request, $id)
+    {
+        $project = Project::find($id);
+        if ($project === null) {
+            return response()->json(
+                [
+                    'message' => 'project not found',
+                ],
+                404
+            );
+        }
+        $field = $request->validate([
+
+            'status' => 'string|in:in progress,submitted,closed',
+        ]);
+        $project->update($field);
+        return response()->json(
+            [
+                'message' => 'the project was created successfully',
+                'pro' =>  $project,
             ],
 
         );

@@ -63,6 +63,6 @@ class User extends Authenticatable
 
     public function teachers()
     {
-        return $this->hasOne(Teacher::class, 'users_id'); // Adjust foreign key if necessary
+        return $this->hasOne(Teacher::class, 'users_id');
     }
 }

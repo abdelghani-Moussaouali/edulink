@@ -9,19 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('keywords_projects', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('projects_id');
-            $table->unsignedBigInteger('keywords_id');
+    // public function up(): void
+    // {
+    //     Schema::create('keywords_projects', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->unsignedBigInteger('projects_id');
+    //         $table->unsignedBigInteger('keywords_id');
 
-            $table->foreignId('projects_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('keywords_id')->constrained()->cascadeOnDelete();
+    //         $table->foreignId('projects_id')->constrained()->cascadeOnDelete();
+    //         $table->foreignId('keywords_id')->constrained()->cascadeOnDelete();
             
-            $table->timestamps();
-        });
-    }
+    //         $table->timestamps();
+    //     });
+    // }
 
     /**
      * Reverse the migrations.

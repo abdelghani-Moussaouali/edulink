@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\keywords;
 use App\Models\specializations;
+use App\Models\student;
+use App\Models\teacher;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Factories\specializationFactory;
@@ -16,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        
+
 
         User::factory()->create([
             'name' => 'admin',
@@ -25,8 +27,8 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('012345678'),
 
         ]);
+
         specializations::factory(10)->create();
         keywords::factory(10)->create();
     }
 }
-

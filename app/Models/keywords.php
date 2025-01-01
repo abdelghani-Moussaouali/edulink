@@ -13,11 +13,6 @@ class keywords extends Model
     protected $fillable = ['keyword_name'];
     // function projects()
     // {
-    //     return $this->belongsTo(related: project::class);
+    //     return $this->belongsToMany(Project::class,table: 'keywords_projects');
     // }
-
-    function projects()
-    {
-        return $this->belongsToMany(Project::class,table: 'keywords_projects');
-    }
 }

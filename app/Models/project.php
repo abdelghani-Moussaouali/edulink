@@ -25,8 +25,12 @@ class project extends Model
     {
         return $this->belongsTo(specializations::class,);
     }
-    function keywords()
+    function teachers()
     {
-        return $this->belongsToMany(keywords::class, table: 'keywords_projects');
+        return $this->belongsTo(teacher::class, 'teachers_id'); // belongs to 
     }
+    // function keywords()
+    // {
+    //     return $this->belongsToMany(keywords::class, table: 'keywords_projects');
+    // }
 }

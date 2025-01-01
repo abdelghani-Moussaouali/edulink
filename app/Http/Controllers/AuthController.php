@@ -12,10 +12,7 @@ use App\Models\teacher;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Enum;
 
 class AuthController extends Controller
 {
@@ -42,7 +39,6 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'data' => new teacherResource($student),
-
                     'token' => $token,
                 ],
                 200
@@ -111,22 +107,17 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'message' => 'confirm your email & password and try again',
-                    
+
                 ],
                 401,
             );
         }
-        // else if ($user->id != Auth::user()->id) {
-        //     return response()->json(
-        //         ['message' => 'your token is incorrect',],
-        //         401,
-        //     );
-        // }
+
         $token = $user->createToken($user->name);
         return response()->json([
             'request' => 'you log in your compte secussfully',
             'token' => $token->plainTextToken,
-            'id'=> $request->user(),
+            'id' => $user->id,
 
         ], 200,);
     }
