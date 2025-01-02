@@ -21,7 +21,7 @@ class student extends Model
     }
     function groups()
     {
-        return $this->belongsTo(related: group::class);
+        return $this->belongsToMany(group::class, "group_students");
     }
 
     function applications()

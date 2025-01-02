@@ -79,15 +79,20 @@ class ProjectController extends Controller
     public function edit(Request $request, $id)
     {
         $project = Project::find($id);
+        if ($project === null) {
+            return response()->json(
+                [
+                    'message' => 'project not found',
+                ],
+                404
+            );
+        }
+        $field = $request->validate([
 
-        $validator = $request->validate(
-            [
-                'title' => 'string',
-                'status' => 'string|in:open,in progress,submitted,closed',
-            ]
-        );
+            'status' => 'string|in:in progress,submitted,closed',
+        ]);
         try {
-            $project->update($validator);
+            $project->update($field);
             return response()->json(
                 [
                     'message' => 'the project was updated successfully',
@@ -129,33 +134,7 @@ class ProjectController extends Controller
             'title' => 'unique:projects|string|min:5',
             'description' => 'string',
             'specializations_id' => 'integer',
-           
-        ]);
-        $project->update($field);
-        return response()->json(
-            [
-                'message' => 'the project was created successfully',
-                'pro' =>  $project,
-            ],
 
-        );
-    }
-
-
-    public function change(Request $request, $id)
-    {
-        $project = Project::find($id);
-        if ($project === null) {
-            return response()->json(
-                [
-                    'message' => 'project not found',
-                ],
-                404
-            );
-        }
-        $field = $request->validate([
-
-            'status' => 'string|in:in progress,submitted,closed',
         ]);
         $project->update($field);
         return response()->json(

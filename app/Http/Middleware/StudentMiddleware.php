@@ -15,7 +15,12 @@ class StudentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->role == 'admin' || $request->user()->role == 'student') {
+        if ($request->user()->isActive == false) {
+            return response()->json(
+                ['message' => 'Your account is not active. Contact your admin for further assistance.'],
+                403
+            );
+        } else if ($request->user()->role == 'admin' || $request->user()->role == 'student') {
             return $next($request);
         }
         return response()->json(

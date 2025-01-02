@@ -1,6 +1,8 @@
 <?php
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -30,8 +32,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware(['auth:sanctum', Admin::class])->group(function () {
     Route::get('user/admin/project', [ProjectController::class, 'index']); // show all projects 
     Route::get('user/', [UserController::class, 'index']); // get all user (admin,students,teacher) 
-    Route::put('user/project/{id}', [ProjectController::class, 'edit']);
-    Route::put('user/project/{id}', [ProjectController::class, 'change']); // update the status of project
+    Route::put('user/project/{id}', [ProjectController::class, 'edit']); // update the status of project
+    Route::put('user/students/{id}', [StudentController::class, 'edit']); // update the status of project
+
+
 });
 
 // permission for teacher,admin
@@ -41,4 +45,13 @@ Route::middleware(['auth:sanctum', TeacherMiddleware::class,])->group(function (
     // project routes :
     Route::post('user/project', [ProjectController::class, 'store']); // create the project
     Route::put('user/teacher/project/{id}', [ProjectController::class, 'update']); // update the status of project
+});
+
+
+
+
+
+// permission for student,admin
+Route::middleware(['auth:sanctum', TeacherMiddleware::class,])->group(function () {
+    Route::post('user/group', [GroupController::class, 'create']);  // create the group
 });

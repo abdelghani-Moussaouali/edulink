@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\studentResource;
+use App\Http\Resources\UserResource;
 use App\Models\student;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,7 @@ class StudentController extends Controller
         try {
             $student = student::all();
             return response()->json(
-                 studentResource::collection($student),
+                studentResource::collection($student),
                 200
             );
         } catch (Exception $ex) {
@@ -33,17 +35,31 @@ class StudentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function edit(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        if ($user === null) {
+            return response()->json(
+                [
+                    'message' => 'the user not found',
+                ],
+                404
+            );
+        }
+        $user->isActive = !$user->isActive;
+        $user->save();
+        return response()->json([
+            'message' => 'the student status was updated successfully',
+           'student' => new UserResource($user),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,$id)
+    public function store(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -54,13 +70,7 @@ class StudentController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(student $student)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.

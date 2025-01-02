@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\applications;
+use App\Models\group_student;
 use Illuminate\Http\Request;
 
-class ApplicationsController extends Controller
+class GroupStudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class ApplicationsController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class ApplicationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(applications $applications)
+    public function show(group_student $group_student)
     {
         //
     }
@@ -42,7 +42,7 @@ class ApplicationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(applications $applications)
+    public function edit(group_student $group_student)
     {
         //
     }
@@ -50,7 +50,7 @@ class ApplicationsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, applications $applications)
+    public function update(Request $request, group_student $group_student)
     {
         //
     }
@@ -58,7 +58,7 @@ class ApplicationsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(applications $applications)
+    public function destroy(group_student $group_student)
     {
         //
     }

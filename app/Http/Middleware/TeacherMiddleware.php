@@ -15,7 +15,12 @@ class TeacherMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->role == 'admin' || $request->user()->role == 'teacher') {
+        if ($request->user()->isActive == false) {
+            return response()->json(
+                ['message' => 'Your account is not active. Contact your admin for further assistance.'],
+                403
+            );
+        } else  if ($request->user()->role == 'admin' || $request->user()->role == 'teacher') {
             return $next($request);
         }
         return response()->json(

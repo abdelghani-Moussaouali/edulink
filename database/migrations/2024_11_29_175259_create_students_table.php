@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('users_id')->constrained()->cascadeOnDelete();
             $table->string('skills')->default('there is no skilles');
+            $table->integer('is_grouped')->default(false);
+            
             // $table->foreignId('groups_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
