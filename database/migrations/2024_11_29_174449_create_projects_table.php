@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('specializations_id')->constrained()->references('id')->on('specializations')->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
-            $table->enum('status', ['open', 'in progress', 'submitted', 'closed']);
+            $table->enum('status', ['pending','open', 'in progress', 'submitted', 'closed']);
             $table->timestamps();
         });
     }

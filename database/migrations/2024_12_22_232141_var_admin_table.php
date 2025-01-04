@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('var_admin', function (Blueprint $table) {
+        Schema::create('var_admins', function (Blueprint $table) {
             $table->id();
-            $table->integer('max_projects');
-            $table->integer('groups_size');
+            $table->string('name');
+            $table->integer('value');
             $table->timestamps();
         });
     }

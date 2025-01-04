@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\studentResource;
+use App\Http\Resources\UserResource;
 use App\Models\Admin;
 use App\Models\student;
 use App\Models\User;
@@ -15,8 +16,8 @@ class AdminController extends Controller
 {
 
     public function index(){
-        $users = student::all();
-        return studentResource::collection($users);
+        $users = Auth::user();
+        return new UserResource($users);
     }
 
 

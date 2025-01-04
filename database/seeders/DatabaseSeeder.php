@@ -9,6 +9,7 @@ use App\Models\student;
 use App\Models\teacher;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\var_admin;
 use Database\Factories\specializationFactory;
 use Illuminate\Database\Seeder;
 
@@ -29,10 +30,21 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('012345678'),
 
         ]);
-        
+
+        var_admin::factory()->create([
+            'name' => 'max_projects',
+            'value' => 0,
+        ], 
+       );
+        var_admin::factory()->create([
+            'name' => 'groups_size',
+            'value' => 0,
+        ], 
+       );
+
 
         specializations::factory(10)->create();
-        Group::factory(1)->create();
+        // Group::factory(1)->create();
         keywords::factory(10)->create();
     }
 }

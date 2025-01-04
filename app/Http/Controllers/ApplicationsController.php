@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\applicationsResource;
 use App\Models\applications;
 use Illuminate\Http\Request;
 
@@ -10,10 +11,16 @@ class ApplicationsController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        //
+        $app = applications::all();
+        return response()->json(
+            applicationsResource::collection($app),
+            200
+        );
     }
+
 
     /**
      * Show the form for creating a new resource.

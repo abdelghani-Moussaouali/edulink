@@ -14,6 +14,13 @@ class applicationsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'projects_id' => $this->projects_id,
+            'status' => $this->status,
+            'groups_id' => $this->groups_id,
+            'isApproved' => $this->isApproved,
+            
+      
+        ];
     }
 }
