@@ -58,7 +58,7 @@ class StudentController extends Controller
     // }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.a
      */
     public function store(Request $request) {}
 

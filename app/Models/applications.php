@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class applications extends Model
 {
+    
     function student()
     {
         return $this->hasMany(related: student::class);

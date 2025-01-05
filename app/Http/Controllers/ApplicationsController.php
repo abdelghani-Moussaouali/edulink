@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\applicationsResource;
 use App\Models\applications;
+use Exception;
 use Illuminate\Http\Request;
 
 class ApplicationsController extends Controller
@@ -25,10 +26,7 @@ class ApplicationsController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -49,9 +47,39 @@ class ApplicationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(applications $applications)
+    public function edit(Request $request, $id)
     {
-        //
+
+        $app = applications::find($id);
+        if ($app  === null) {
+            return response()->json(
+                [
+                    'message' => 'application not found',
+                ],
+                404
+            );
+        }
+        $field = $request->validate([
+            'status' => 'string|in:open,accepted, rejected',
+        ]);
+        try {
+            $app->update($field);
+            return response()->json(
+                [
+                    'message' => 'the application was updated successfully',
+                    'project' => $app,
+                ],
+                200
+            );
+        } catch (Exception $th) {
+            return response()->json(
+                [
+                    'message' => 'the project wasn\'t updated , there is error'
+
+                ],
+                500
+            );
+        }
     }
 
     /**
